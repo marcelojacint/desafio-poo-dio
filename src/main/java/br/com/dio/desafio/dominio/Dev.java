@@ -12,7 +12,7 @@ public class Dev {
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
 
     public void inscreverBootCamp(BootCamp bootCamp) {
-        this.conteudosConcluidos.addAll(bootCamp.getConteudos());
+        this.conteudosInscritos.addAll(bootCamp.getConteudos());
         bootCamp.getDevs().add(this); //adicionando um novo dev ao bootcamp
     }
 
@@ -21,7 +21,7 @@ public class Dev {
         if(conteudoProgredir.isPresent()){
             this.conteudosConcluidos.add(conteudoProgredir.get());
             this.conteudosInscritos.remove(conteudoProgredir.get());
-        }else throw new NullPointerException("não existe conteúdos matriclados no bootcamp");
+        }else throw new NullPointerException("não existem conteúdos matriculados no bootcamp");
     }
 
     public double calcularTotalXp() {
