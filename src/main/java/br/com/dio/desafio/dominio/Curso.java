@@ -2,36 +2,24 @@ package br.com.dio.desafio.dominio;
 
 import java.util.Objects;
 
-public class Curso {
+public class Curso extends Conteudo {
 
-    private String titulo;
-    private String escricao;
     private Integer cargaHoratia;
 
     public Curso() {
     }
 
-    public Curso(String titulo, String escricao, Integer cargaHoratia) {
+    public Curso(String titulo, String descricao, Integer cargaHoratia) {
         this.titulo = titulo;
-        this.escricao = escricao;
+        this.descricao = descricao;
         this.cargaHoratia = cargaHoratia;
     }
 
-    public String getTitulo() {
-        return titulo;
+    @Override
+    public double calculaXp() {
+        return XP_PADRAO * cargaHoratia;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getEscricao() {
-        return escricao;
-    }
-
-    public void setEscricao(String escricao) {
-        this.escricao = escricao;
-    }
 
     public Integer getCargaHoratia() {
         return cargaHoratia;
@@ -46,19 +34,20 @@ public class Curso {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Curso curso = (Curso) o;
-        return Objects.equals(titulo, curso.titulo) && Objects.equals(escricao, curso.escricao) && Objects.equals(cargaHoratia, curso.cargaHoratia);
+        return Objects.equals(titulo, curso.titulo) && Objects.equals(descricao, curso.descricao) && Objects.equals(cargaHoratia, curso.cargaHoratia);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(titulo, escricao, cargaHoratia);
+        return Objects.hash(titulo, descricao, cargaHoratia);
     }
 
     @Override
     public String toString() {
         return "Curso{" +
+                "XP_PADRÂO=" + calculaXp() + '\'' +
                 "titulo='" + titulo + '\'' +
-                ", escricao='" + escricao + '\'' +
+                ", escricao='" + descricao + '\'' +
                 ", cargaHoratia=" + cargaHoratia +
                 '}';
     }
