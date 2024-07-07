@@ -2,6 +2,7 @@ package br.com.dio.desafio.dominio;
 
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 public class Dev {
@@ -10,16 +11,21 @@ public class Dev {
     private Set<Conteudo> conteudosInscritos = new LinkedHashSet<>();
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
 
-    public void inscreverBootCamp(BootCamp bootCamp){
-
+    public void inscreverBootCamp(BootCamp bootCamp) {
+        this.conteudosConcluidos.addAll(bootCamp.getConteudos());
+        bootCamp.getDevs().add(this); //adicionando um novo dev ao bootcamp
     }
 
-    public void progredir(){
-
+    public void progredir() {
+        Optional<Conteudo> conteudoProgredir = this.conteudosInscritos.stream().findFirst();
+        if(conteudoProgredir.isPresent()){
+            this.conteudosConcluidos.add(conteudoProgredir.get());
+            this.conteudosInscritos.remove(conteudoProgredir.get());
+        }else throw new NullPointerException("não existe conteúdos matriclados no bootcamp");
     }
 
-    public void calcularTotalXp(){
-
+    public double calcularTotalXp() {
+      return  this.conteudosConcluidos.stream().mapToDouble(Conteudo::calculaXp).sum();
     }
 
     public String getName() {
@@ -30,30 +36,6 @@ public class Dev {
         this.name = name;
     }
 
-    public Set<Conteudo> getConteudosInscritos() {
-        return conteudosInscritos;
-    }
-
-    public Set<Conteudo> getConteudosConcluidos() {
-        return conteudosConcluidos;
-    }
-
-    public void addConteudosInscritos (Conteudo obj){
-        conteudosInscritos.add(obj);
-    }
-
-
-    public void addConteudosConcluidos (Conteudo obj){
-        conteudosInscritos.add(obj);
-    }
-
-    public void removeConteudosInscritos (Conteudo obj){
-        conteudosInscritos.remove(obj);
-    }
-
-    public void removeConteudosConcluidos (Conteudo obj){
-        conteudosInscritos.remove(obj);
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -61,6 +43,22 @@ public class Dev {
         if (o == null || getClass() != o.getClass()) return false;
         Dev dev = (Dev) o;
         return Objects.equals(name, dev.name) && Objects.equals(conteudosInscritos, dev.conteudosInscritos) && Objects.equals(conteudosConcluidos, dev.conteudosConcluidos);
+    }
+
+    public Set<Conteudo> getConteudosInscritos() {
+        return conteudosInscritos;
+    }
+
+    public void setConteudosInscritos(Set<Conteudo> conteudosInscritos) {
+        this.conteudosInscritos = conteudosInscritos;
+    }
+
+    public Set<Conteudo> getConteudosConcluidos() {
+        return conteudosConcluidos;
+    }
+
+    public void setConteudosConcluidos(Set<Conteudo> conteudosConcluidos) {
+        this.conteudosConcluidos = conteudosConcluidos;
     }
 
     @Override

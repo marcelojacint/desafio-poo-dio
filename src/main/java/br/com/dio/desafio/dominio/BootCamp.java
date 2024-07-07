@@ -35,6 +35,7 @@ public class BootCamp {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
@@ -47,20 +48,20 @@ public class BootCamp {
         return dataFinal;
     }
 
-    public void addDev(Dev dev){
-        devs.add(dev);
+    public Set<Dev> getDevs() {
+        return devs;
     }
 
-    public void removeDev(Dev dev){
-        devs.remove(dev);
+    public void setDevs(Set<Dev> devs) {
+        this.devs = devs;
     }
 
-    public void addConteudo(Conteudo conteudo){
-        conteudos.add(conteudo);
+    public Set<Conteudo> getConteudos() {
+        return conteudos;
     }
 
-    public void removeConteudo(Conteudo conteudo){
-        conteudos.remove(conteudo);
+    public void setConteudos(Set<Conteudo> conteudos) {
+        this.conteudos = conteudos;
     }
 
     @Override
